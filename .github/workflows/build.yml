@@ -53,4 +53,5 @@ jobs:
 
     - name: Upload to PyPI
       run: |
+        cp -r wheels/* wheels/
         twine upload --username __token__ --password ${{ secrets.PYPI_API_TOKEN }} wheels/*
