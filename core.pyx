@@ -37,23 +37,14 @@ cpdef int max_string_length(list words):
     return max_len
 
 cpdef tuple best_match(int i, list cost, dict wordcost, str s, int maxword):
-    cdef int k
-    cdef int c
-    cdef double min_cost = 9e999
-    cdef int min_length = 0
-    cdef tuple best_match_tuple = (min_cost, min_length)
-    cdef int start_index = max(0, i - maxword)
-    cdef int end_index = i
-    cdef double candidate_cost = 9e999
-
-    cdef list candidates = list(enumerate(reversed(cost[start_index:end_index])))
+    candidates = enumerate(reversed(cost[max(0, i - maxword) : i]))
+    result = float('inf')  # 或者使用一个足够大的数来初始化result
+    min_length = 0
 
     for k, c in candidates:
-        candidate_str = s[i-k-1:i] if i-k-1 >= 0 else ''  # Assuming s is a bytes object
-        candidate_cost = wordcost.get(candidate_str.lower(), 9e999)
-        if c + candidate_cost < min_cost:
-            min_cost = c + candidate_cost
+        current_cost = c + wordcost.get(s[i - k - 1:i].lower(), 9e999)
+        if current_cost < result:
+            result = current_cost
             min_length = k + 1
-            best_match_tuple = (min_cost, min_length)
 
-    return best_match_tuple
+    return (result, min_length)
