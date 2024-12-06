@@ -4,20 +4,14 @@ on: [push, pull_request]
 
 jobs:
   build_wheels:
-    name: Build wheels for {{ matrix.PYTHON_VERSION }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
-
+    name: Build wheels
+    runs-on: ubuntu-latest
+  
     steps:
     - uses: actions/checkout@v3
 
     - name: Set up Python ${{ matrix.PYTHON_VERSION }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
 
     - name: Install Cython, build dependencies
       run: |
@@ -26,17 +20,11 @@ jobs:
 
     - name: Build the wheel
       run: |
-        python setup.py bdist_wheel sdist
+        python setup.py sdist
       env:
         # 确保Cython编译时使用正确的Python版本
         CYTHON_TRACE: "1"
         CYTHON_SHOW_COMPILING: "1"
-
-    - name: Upload wheels as artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: wheels-${{ matrix.PYTHON_VERSION }}-${{ matrix.os }}
-        path: dist/
 
     - name: Upload to PyPI
       run: |
