@@ -33,7 +33,7 @@ extensions = [
 CYTHONIZE = bool(int(os.getenv("CYTHONIZE", 0))) and cythonize is not None
 
 if CYTHONIZE:
-    compiler_directives = {"language_level": 3, "embedsignature": True}
+    compiler_directives = {"language_level": 3}
     extensions = cythonize(extensions, compiler_directives=compiler_directives)
 else:
     extensions = no_cythonize(extensions)
@@ -41,9 +41,9 @@ else:
 # 设置setup参数
 setup(
     name='cwordninja',  # 包名
-    version='2.0.2',  # 版本号
-    author='Your Name',  # 作者
-    author_email='your.email@example.com',  # 作者邮箱
+    version='2.0.3',  # 版本号
+    author='MoYan',  # 作者
+    author_email='moyanjdc@qq.com',  # 作者邮箱
     description='Probabilistically split concatenated words using NLP based on English Wikipedia uni-gram frequencies.',  # 包描述
     long_description=open("README.md").read(),  # 长描述
     long_description_content_type="text/markdown",
