@@ -13,7 +13,7 @@ extensions = [
 # 设置setup参数
 setup(
     name='cwordninja',  # 包名
-    version='2.0.1',  # 版本号
+    version='2.0.2',  # 版本号
     author='Your Name',  # 作者
     author_email='your.email@example.com',  # 作者邮箱
     description='Probabilistically split concatenated words using NLP based on English Wikipedia uni-gram frequencies.',  # 包描述
