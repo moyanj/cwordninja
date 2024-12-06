@@ -30,7 +30,7 @@ extensions = [
     )
 ]
 
-CYTHONIZE = bool(int(os.getenv("CYTHONIZE", 0))) and cythonize is not None
+CYTHONIZE = cythonize is not None
 
 if CYTHONIZE:
     compiler_directives = {"language_level": 3}
@@ -41,7 +41,7 @@ else:
 # 设置setup参数
 setup(
     name='cwordninja',  # 包名
-    version='2.0.3',  # 版本号
+    version='2.0.4',  # 版本号
     author='MoYan',  # 作者
     author_email='moyanjdc@qq.com',  # 作者邮箱
     description='Probabilistically split concatenated words using NLP based on English Wikipedia uni-gram frequencies.',  # 包描述
