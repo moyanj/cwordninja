@@ -23,7 +23,7 @@ setup(
     ext_modules=cythonize(extensions, compiler_directives={'language_level': "3"}),  # Cython编译选项
     install_requires=[  # 依赖
     ],
-    python_requires='>=3.6',  # 兼容的Python版本
+    python_requires='>=3.7',  # 兼容的Python版本
     include_package_data=True,  # 包含数据文件
     classifiers=[  # 包分类
         'Development Status :: 5 - Production/Stable',
@@ -35,7 +35,6 @@ setup(
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Cython',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
