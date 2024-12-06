@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+*.c
+1.txt
+t2.py

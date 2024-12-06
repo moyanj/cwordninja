@@ -1,5 +1,5 @@
 import unittest
-import wordninja
+import cwordninja as wordninja
 
 
 class TestWordNinja(unittest.TestCase):

@@ -1,1 +1,1 @@
-include wordninja_words.txt.gz
+include cwordninja/wordninja_words.txt.gz
