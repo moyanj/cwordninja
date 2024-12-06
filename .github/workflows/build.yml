@@ -22,7 +22,7 @@ jobs:
     - name: Install Cython, build dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install cython wheel setuptools
+        pip install cython wheel setuptools twine
 
     - name: Build the wheel
       run: |
@@ -38,20 +38,7 @@ jobs:
         name: wheels-${{ matrix.PYTHON_VERSION }}-${{ matrix.os }}
         path: dist/
 
-  collect_wheels:
-    needs: build_wheels
-    name: Collect wheels
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/download-artifact@v3
-      with:
-        path: wheels/
-    - name: Install twine
-      run: |
-        python -m pip install --upgrade pip
-        pip install wheel setuptools twine
-
     - name: Upload to PyPI
       run: |
-        ls -Ra
-        twine upload --username __token__ --password ${{ secrets.PYPI_API_TOKEN }} wheels/*
+        twine upload --username __token__ --password ${{ secrets.PYPI_API_TOKEN }} dist/*
+    
