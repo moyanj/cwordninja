@@ -48,7 +48,5 @@ jobs:
         path: wheels/
 
     - name: Upload to PyPI
-      # 只在主分支的push事件中运行
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
         twine upload --username __token__ --password ${{ secrets.PYPI_API_TOKEN }} wheels/*
