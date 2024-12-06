@@ -18,6 +18,7 @@ setup(
     author_email='your.email@example.com',  # 作者邮箱
     description='Probabilistically split concatenated words using NLP based on English Wikipedia uni-gram frequencies.',  # 包描述
     long_description=open("README.md").read(),  # 长描述
+    long_description_content_type="text/markdown",
     url='https://github.com/moyanj/cwordninja',  # 项目URL
     packages=["cwordninja"],  # 包名
     ext_modules=cythonize(extensions, compiler_directives={'language_level': "3"}),  # Cython编译选项
