@@ -53,8 +53,8 @@ print(int(r_time / c_time), "x")
 Result:
 ```
 cwordninja: 2 ms
-wordninja: 909 ms
-454 x
+wordninja: 1507 ms
+753 x
 ```
 
 It can handle long strings:
