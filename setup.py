@@ -1,5 +1,25 @@
-from setuptools import setup, Extension, find_packages
-from Cython.Build import cythonize
+from setuptools import setup, Extension
+import os
+
+try:
+    from Cython.Build import cythonize
+except ImportError:
+    cythonize = None
+
+def no_cythonize(extensions, **_ignore):
+    for extension in extensions:
+        sources = []
+        for sfile in extension.sources:
+            path, ext = os.path.splitext(sfile)
+            if ext in (".pyx", ".py"):
+                if extension.language == "c++":
+                    ext = ".cpp"
+                else:
+                    ext = ".c"
+                sfile = path + ext
+            sources.append(sfile)
+        extension.sources[:] = sources
+    return extensions
 
 # 定义Cython扩展模块
 extensions = [
@@ -9,6 +29,14 @@ extensions = [
         extra_compile_args=['-O3'],  # 额外的编译参数
     )
 ]
+
+CYTHONIZE = bool(int(os.getenv("CYTHONIZE", 0))) and cythonize is not None
+
+if CYTHONIZE:
+    compiler_directives = {"language_level": 3, "embedsignature": True}
+    extensions = cythonize(extensions, compiler_directives=compiler_directives)
+else:
+    extensions = no_cythonize(extensions)
 
 # 设置setup参数
 setup(
@@ -21,11 +49,8 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/moyanj/cwordninja',  # 项目URL
     packages=["cwordninja"],  # 包名
-    ext_modules=cythonize(extensions, compiler_directives={'language_level': "3"}),  # Cython编译选项
+    ext_modules=extensions,  # Cython编译选项
     install_requires=[  # 依赖
-    ],
-    setup_requires=[
-        'cython'
     ],
     python_requires='>=3.7',  # 兼容的Python版本
     include_package_data=True,  # 包含数据文件
