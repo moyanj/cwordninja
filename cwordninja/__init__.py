@@ -36,7 +36,13 @@ class LanguageModel(object):
     def split(self, s):
         """Uses dynamic programming to infer the location of spaces in a string without spaces."""
         l = [self._split(x) for x in _SPLIT_RE.split(s)]
-        return [item for sublist in l for item in sublist]
+        for sublist in l:
+            for item in sublist:
+                yield item
+    
+    def lsplit(self, s):
+        return list(self.split(s))
+
     def best_match(self, i, cost, s):
         return core.best_match(i, cost, self._wordcost, str(s), self._maxword)
     def _split(self, s):
@@ -94,3 +100,6 @@ _SPLIT_RE = re.compile("[^a-zA-Z0-9']+")
 
 def split(s):
     return DEFAULT_LANGUAGE_MODEL.split(s)
+
+def lsplit(s):
+    return DEFAULT_LANGUAGE_MODEL.lsplit(s)
